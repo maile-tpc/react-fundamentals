@@ -1,6 +1,7 @@
 // Styling
 // http://localhost:3000/isolated/exercise/05.js
 
+import { blue } from 'chalk'
 import * as React from 'react'
 import '../box-styles.css'
 
@@ -12,16 +13,30 @@ import '../box-styles.css'
 
 // 🐨 add a style prop to each of them as well so their background color
 // matches what the text says it should be as well as `fontStyle: 'italic'`
-const smallBox = <div>small lightblue box</div>
-const mediumBox = <div>medium pink box</div>
-const largeBox = <div>large orange box</div>
+
+const Box = ({size, children, color, className = '', style, ...otherProps}) => {
+  const boxSize = 'box--' + size;
+  const customStyle = {backgroundColor: color, fontStyle: 'italic', ...style};
+  return (
+    <div className={`box ${boxSize} ${className}`} style={customStyle}>
+      {children}
+    </div>
+  );
+}
+
 
 function App() {
   return (
     <div>
-      {smallBox}
-      {mediumBox}
-      {largeBox}
+      <Box size='small' color='lightblue'>
+        small lightblue box
+      </Box>
+      <Box size='medium' color='pink'>
+        medium pink box
+      </Box>
+      <Box size='large' color='orange' style={{fontWeight: 700}}>
+        large orange box
+      </Box>
     </div>
   )
 }
